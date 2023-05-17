@@ -2,13 +2,14 @@ import * as Books from "./js/userBooks/userBooks.js"
 import {setupFav} from "./js/pageSetup/favorite/bookFavorites.js";
 import {addReview, setupBookComments} from "./js/pageSetup/review/bookComments.js";
 import {setupBookDetails, setupBookPlaceholders} from "./js/pageSetup/bookDetails.js";
-import {setupRecPlaceholders, handleClickSetUpRecommendations} from "./js/pageSetup/recommendedBooks.js";
+import {setupRecPlaceholders, setupRecommendations} from "./js/pageSetup/recommendedBooks.js";
 import {updateAverageRating} from "./js/pageSetup/review/bookRatings.js";
 
 export const initBook = async (referenceId) => {
     setupPlaceholders()
     await Books.fetchBookDetails(referenceId)
-    initRecommendations().then()
+    //initRecommendations().then()
+    showRecommendations ()
     await initBookDetails()
     await initReviewDetails()
 };
@@ -27,15 +28,20 @@ const initBookDetails = async () => {
 const initReviewDetails =  async () => {
     await setupBookComments()
     updateAverageRating()
+} 
+
+ const initRecommendations = async () => {
+    Books.fetchRecommendations()
+        .then(setupRecommendations)
 }
 
-const initRecommendations = async () => {
-    handleClickSetUpRecommendations(() => {
-        Books.fetchRecommendations();
+const showRecommendations = () => {
+    const findSimilarBtn = document.getElementById("find-similar-btn");
+    findSimilarBtn.addEventListener("click", () => {
+        initRecommendations();
+        const recsTitle = document.getElementById("rec-section-title");
+        const recs = document.getElementById("rec-cont");
+        recsTitle.style.display = "block";
+        recs.style.display = "grid";
     });
-};
-
-/* const initRecommendations = async () => {
-    Books.fetchRecommendations()
-        .then(handleClickSetUpRecommendations)
-} */
+}; 

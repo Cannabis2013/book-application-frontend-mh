@@ -10,27 +10,10 @@ export const setupRecPlaceholders = () => {
     }
 }
 
-export const handleClickSetUpRecommendations = async () => {
-    document.getElementById("find-similar-btn").addEventListener("click", setupRecommendations);
-}
-
-const setupRecommendations = async () => {
+export const setupRecommendations = () => {
     ElementUpdate.updateInnerHtml("rec-cont","")
     createRecommendations()
-    showRecommendations()
 }
-
-const showRecommendations = () => {
-    const recsTitle = document.getElementById("rec-section-title")
-    const recs = document.getElementById("rec-cont")
-    if(recsTitle.style.display === "none" && recs.style.display === "none"){
-        recsTitle.style.display = "block"
-        recs.style.display = "grid"
-    }
-    else{
-        return null
-    }
-}   
 
 const createRecommendations = () => {
     const recs = Books.getRecommendations()
