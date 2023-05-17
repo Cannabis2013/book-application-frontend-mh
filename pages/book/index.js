@@ -39,9 +39,9 @@ const showRecommendations = () => {
     const findSimilarBtn = document.getElementById("find-similar-btn");
     findSimilarBtn.addEventListener("click", () => {
         initRecommendations();
-        const recsTitle = document.getElementById("rec-section-title");
         const recs = document.getElementById("rec-cont");
-        recsTitle.style.display = "block";
+        findSimilarBtn.style.display = "none";
         recs.style.display = "grid";
+        
     });
 }; 
